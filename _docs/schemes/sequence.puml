@@ -1,0 +1,38 @@
+@startuml
+actor "Seller" as Seller
+participant "Escrow Contract" as Escrow
+actor "Buyer" as Buyer
+actor "Inspector" as Inspector
+actor "Lender" as Lender
+participant "RealEstate Contract" as RealEstate
+
+Seller -> Escrow: list(nftID, buyer, purchasePrice, escrowAmount)
+note right: NFT is listed for sale
+Buyer -> Escrow: approveSale(nftID)
+note right: Buyer approves the sale
+Buyer -> Escrow: depositEarnest(nftID)
+note right: Buyer deposits earnest money (50%)
+Inspector -> Escrow: updateInspectionStatus(nftID, passed)
+note right: Inspection status is updated
+Lender -> Escrow: approveSale(nftID)
+note right: Lender approves the sale
+Lender -> Escrow: contractInteraction(lend 50% to buyer)
+note right: Lender lends 50% of the amount to the buyer
+Seller -> Escrow: approveSale(nftID)
+note right: Seller approves the sale
+Seller -> Escrow: finalizeSale(nftID)
+note right: Seller initiates the finalization of the sale
+note over Escrow: 1. Check if inspection passed
+note over Escrow: 2. Check if buyer approved the sale
+note over Escrow: 3. Check if seller approved the sale
+note over Escrow: 4. Check if lender approved the sale
+note over Escrow: 5. Check if contract balance is >= purchase price
+Escrow -> Buyer: transferFrom(Escrow, Buyer, nftID)
+note right: NFT is transferred from the Escrow contract to the Buyer
+Escrow -> Seller: paid
+note right: Sale is finalized, funds are transferred to seller
+alt Sale is cancelled
+    Escrow -> Escrow: cancelSale(nftID)
+    note right: Sale is cancelled, earnest money is refunded or sent to seller based on inspection status
+end
+@enduml
