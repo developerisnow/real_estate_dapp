@@ -34,7 +34,7 @@ In a separate terminal execute:
 
 The sequence diagram illustrates the flow of interactions between the Seller, Buyer, Inspector, Lender, Escrow Contract, and RealEstate Contract within the Real Estate NFT DApp. Here's a brief overview:
 
-![Diagram](https://github.com/developerisnow/real_estate_dapp/blob/main/millow/_docs/schemes/sequence.png?raw=true)
+![Diagram](https://github.com/developerisnow/real_estate_dapp/blob/main/_docs/schemes/sequence.png?raw=true)
 
 1. The Seller lists an NFT for sale on the Escrow Contract, specifying details such as the NFT ID, buyer, purchase price, and escrow amount.
 2. The Buyer approves the sale and deposits earnest money, which is typically 50% of the purchase price.
