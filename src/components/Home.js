@@ -16,6 +16,8 @@ const Home = ({ home, provider, account, escrow, togglePop }) => {
 
     const [owner, setOwner] = useState(null)
 
+    let $count = 0;
+
     const fetchDetails = async () => {
         // -- Buyer
 
@@ -58,6 +60,7 @@ const Home = ({ home, provider, account, escrow, togglePop }) => {
     }
 
     const buyHandler = async () => {
+        console.log(`How many time runs this buyHandler function ?`, ++$count)
         const escrowAmount = await escrow.escrowAmount(home.id)
         const signer = await provider.getSigner()
 
@@ -73,8 +76,8 @@ const Home = ({ home, provider, account, escrow, togglePop }) => {
     }
 
     const inspectHandler = async () => {
+        console.log(`How many time runs this inspectHandler function ?`, ++$count)
         const signer = await provider.getSigner()
-
         // Inspector updates status
         const transaction = await escrow.connect(signer).updateInspectionStatus(home.id, true)
         await transaction.wait()
@@ -83,6 +86,7 @@ const Home = ({ home, provider, account, escrow, togglePop }) => {
     }
 
     const lendHandler = async () => {
+        console.log(`How many time runs this lendHandler function ?`, ++$count)
         const signer = await provider.getSigner()
 
         // Lender approves...
@@ -97,8 +101,8 @@ const Home = ({ home, provider, account, escrow, togglePop }) => {
     }
 
     const sellHandler = async () => {
+        console.log(`How many time runs this sellHandler function ?`, ++$count)
         const signer = await provider.getSigner()
-
         // Seller approves...
         let transaction = await escrow.connect(signer).approveSale(home.id)
         await transaction.wait()
